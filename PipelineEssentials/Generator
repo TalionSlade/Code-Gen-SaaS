@@ -1,0 +1,32 @@
+import requests
+
+def generate_code(prompt, model="codellama"):
+    """    
+    Generate code using Ollama.
+    """
+    response = requests.post(
+        "http://localhost:11434/api/generate",
+        json={
+            "model": model,  # specifically using codellama model
+            "prompt": prompt,
+            "stream": False
+        }
+    )
+    if response.status_code == 200:
+        return response.json().get("text", "")
+    else:
+        raise Exception(f"Error generating code: {response.text}")
+
+# # Example: Generate React frontend code
+# react_prompt = f"""
+# Generate a React frontend for a app based on the following user stories:
+# {user_stories}
+# """
+# react_code = generate_code(react_prompt)
+
+# # Example: Generate Node.js backend code
+# node_prompt = f"""
+# Generate a Node.js backend for a to-do app based on the following user stories:
+# {user_stories}
+# """
+# node_code = generate_code(node_prompt)
