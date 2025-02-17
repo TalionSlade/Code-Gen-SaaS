@@ -1,0 +1,61 @@
+from flask import Flask, request, jsonify
+import React from 'react';
+
+function Calculator() {
+  const [number1, setNumber1] = React.useState('');
+  const [number2, setNumber2] = React.useState('');
+  const [operation, setOperation] = React.useState('');
+  const [result, setResult] = React.useState('');
+
+  function handleChange1(event) {
+    setNumber1(event.target.value);
+  }
+
+  function handleChange2(event) {
+    setNumber2(event.target.value);
+  }
+
+  function handleOperation(event) {
+    setOperation(event.target.value);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    let result = 0;
+    if (operation === 'add') {
+      result = Number(number1) + Number(number2);
+    } else if (operation === 'subtract') {
+      result = Number(number1) - Number(number2);
+    } else if (operation === 'divide') {
+      result = Number(number1) / Number(number2);
+    } else if (operation === 'multiply') {
+      result = Number(number1) * Number(number2);
+    }
+    setResult(result.toString());
+  }
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="num1">Number 1:</label>
+        <input type="text" id="num1" value={number1} onChange={handleChange1} />
+        <br />
+        <label htmlFor="num2">Number 2:</label>
+        <input type="text" id="num2" value={number2} onChange={handleChange2} />
+        <br />
+        <label htmlFor="operation">Operation:</label>
+        <select id="operation" value={operation} onChange={handleOperation}>
+          <option value="add">Add</option>
+          <option value="subtract">Subtract</option>
+          <option value="divide">Divide</option>
+          <option value="multiply">Multiply</option>
+        </select>
+        <br />
+        <button type="submit">Calculate</button>
+      </form>
+      <p>{result}</p>
+    </div>
+  );
+}
+
+export default Calculator;

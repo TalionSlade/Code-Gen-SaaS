@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="/static/js/main.js"></script>
+  </body>
+</html>
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Calculator from './Calculator';
+
+const App = () => {
+  return (
+    <Router>
+      <Route path="/" exact component={Calculator} />
+    </Router>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));

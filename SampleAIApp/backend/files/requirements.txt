@@ -1,0 +1,43 @@
+import React from 'react';
+pip install flask
+                        pip install flask-math
+                        
+                        from flask import Flask, request, jsonify
+                        from math_util import MathUtil
+                        
+                        app = Flask(__name__)
+                        
+                        @app.route('/add', methods=['POST'])
+                        def add():
+                            data = request.get_json()
+                            a = data['a']
+                            b = data['b']
+                            result = MathUtil.add(a, b)
+                            return jsonify({'result': result})
+                        
+                        @app.route('/subtract', methods=['POST'])
+                        def subtract():
+                            data = request.get_json()
+                            a = data['a']
+                            b = data['b']
+                            result = MathUtil.subtract(a, b)
+                            return jsonify({'result': result})
+                        
+                        @app.route('/divide', methods=['POST'])
+                        def divide():
+                            data = request.get_json()
+                            a = data['a']
+                            b = data['b']
+                            result = MathUtil.divide(a, b)
+                            return jsonify({'result': result})
+                        
+                        @app.route('/multiply', methods=['POST'])
+                        def multiply():
+                            data = request.get_json()
+                            a = data['a']
+                            b = data['b']
+                            result = MathUtil.multiply(a, b)
+                            return jsonify({'result': result})
+                        
+                        if __name__ == '__main__':
+                            app.run()
