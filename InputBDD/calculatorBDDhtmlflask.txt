@@ -1,0 +1,222 @@
+BDD Requirement Document for Basic HTML Flask-Based Calculator App
+Feature: Basic Arithmetic Operations
+As a user,
+I want to perform basic arithmetic operations (addition, subtraction, multiplication, division)
+So that I can get accurate results for my calculations.
+
+Scenario 1: Addition of Two Numbers
+Given I am on the calculator app's homepage
+
+When I enter the first number 5 in the first input field
+
+And I enter the second number 3 in the second input field
+
+And I select the + operator from the dropdown
+
+And I click the Calculate button
+
+Then I should see the result 8 displayed on the screen
+
+Scenario 2: Subtraction of Two Numbers
+Given I am on the calculator app's homepage
+
+When I enter the first number 10 in the first input field
+
+And I enter the second number 4 in the second input field
+
+And I select the - operator from the dropdown
+
+And I click the Calculate button
+
+Then I should see the result 6 displayed on the screen
+
+Scenario 3: Multiplication of Two Numbers
+Given I am on the calculator app's homepage
+
+When I enter the first number 7 in the first input field
+
+And I enter the second number 6 in the second input field
+
+And I select the * operator from the dropdown
+
+And I click the Calculate button
+
+Then I should see the result 42 displayed on the screen
+
+Scenario 4: Division of Two Numbers
+Given I am on the calculator app's homepage
+
+When I enter the first number 20 in the first input field
+
+And I enter the second number 5 in the second input field
+
+And I select the / operator from the dropdown
+
+And I click the Calculate button
+
+Then I should see the result 4 displayed on the screen
+
+Scenario 5: Division by Zero
+Given I am on the calculator app's homepage
+
+When I enter the first number 10 in the first input field
+
+And I enter the second number 0 in the second input field
+
+And I select the / operator from the dropdown
+
+And I click the Calculate button
+
+Then I should see an error message Cannot divide by zero displayed on the screen
+
+Feature: Clear Input
+As a user,
+I want to clear the input fields and result
+So that I can start a new calculation without refreshing the page.
+
+Scenario 6: Clear Input Fields
+Given I am on the calculator app's homepage
+
+When I enter the first number 5 in the first input field
+
+And I enter the second number 3 in the second input field
+
+And I select the + operator from the dropdown
+
+And I click the Clear button
+
+Then The input fields and result should be empty
+
+Feature: Input Validation
+As a user,
+I want the app to validate my inputs
+So that I cannot enter invalid data (e.g., non-numeric values).
+
+Scenario 7: Invalid Input (Non-Numeric Values)
+Given I am on the calculator app's homepage
+
+When I enter the first number abc in the first input field
+
+And I enter the second number 3 in the second input field
+
+And I select the + operator from the dropdown
+
+And I click the Calculate button
+
+Then I should see an error message Invalid input: Please enter numeric values displayed on the screen
+
+Feature: Responsive UI
+As a user,
+I want the calculator app to be responsive
+So that I can use it on different devices (desktop, tablet, mobile).
+
+Scenario 8: Responsive Design
+Given I am using the calculator app on a mobile device
+
+When I open the app
+
+Then The layout should adjust to fit the screen size
+
+And All buttons and input fields should be easily clickable
+
+Feature: Error Handling
+As a user,
+I want the app to handle errors gracefully
+So that I can understand what went wrong.
+
+Scenario 9: Invalid Operator
+Given I am on the calculator app's homepage
+
+When I enter the first number 5 in the first input field
+
+And I enter the second number 3 in the second input field
+
+And I select an invalid operator # from the dropdown
+
+And I click the Calculate button
+
+Then I should see an error message Invalid operator: Please use +, -, *, or / displayed on the screen
+
+Feature: Decimal Number Support
+As a user,
+I want to perform calculations with decimal numbers
+So that I can get precise results.
+
+Scenario 10: Addition of Decimal Numbers
+Given I am on the calculator app's homepage
+
+When I enter the first number 5.5 in the first input field
+
+And I enter the second number 3.2 in the second input field
+
+And I select the + operator from the dropdown
+
+And I click the Calculate button
+
+Then I should see the result 8.7 displayed on the screen
+
+Feature: Basic UI Elements
+As a user,
+I want to see a simple and intuitive user interface
+So that I can easily perform calculations.
+
+Scenario 11: Basic UI Elements
+Given I am on the calculator app's homepage
+
+When I open the app
+
+Then I should see the following elements:
+
+Two input fields for numbers
+
+A dropdown to select the operator (+, -, *, /)
+
+A Calculate button
+
+A Clear button
+
+A result display area
+
+Feature: Unit Tests
+As a developer,
+I want to write unit tests for the calculator app
+So that I can ensure the app works as expected.
+
+Scenario 12: Unit Test for Addition
+Given A function add(a, b)
+
+When I pass the arguments 5 and 3
+
+Then The function should return 8
+
+Feature: Basic Styling
+As a user,
+I want the app to have basic styling
+So that it looks clean and professional.
+
+Scenario 13: Basic Styling
+Given I am on the calculator app's homepage
+
+When I open the app
+
+Then The app should have a clean layout with centered elements
+
+And The buttons and input fields should be styled for better usability
+
+Feature: Flask Backend
+As a developer,
+I want to use Flask to handle the backend logic
+So that the app can process calculations and return results.
+
+Scenario 14: Flask Backend Logic
+Given A Flask route /calculate
+
+When I send a POST request with the following data:
+
+num1: 5
+
+num2: 3
+
+operator: +
+
+Then The backend should return the result 8
