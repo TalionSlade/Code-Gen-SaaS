@@ -41,6 +41,7 @@ def review_code(code, model="gpt-4"):
     Here is the code:
     {code}
     Return the Original Code if no fixes else return the corrected code.
+    DO NOT ADD ANY EXTRA TEXT OR COMMENTS IN THE RETURNED CODE.
     """
     reviewed_code = llmConnectorReview(prompt, model)
     return reviewed_code

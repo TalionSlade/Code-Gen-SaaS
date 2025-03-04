@@ -41,17 +41,30 @@ def infer_project_structure(user_story, tech_stack, file_stack, modelname="gpt-4
     Return only a valid JSON object without any comments or extra text.
     Return the structure as a JSON object of file structure only.
 
-    Example format (use only for reference, not as a strict template):
-    {{      
-            "src": {{
-                "main": "app.py",
-                "routes": ["calculator.py"]
-            }},
-            "tests": {{
-                "unit_tests": [
-                    "test_calculator.py"
+    Example format:
+    {{       
+        "src": {{
+            "main": "app.py",
+            "routes": [
+                "calculator.py"
+            ],
+            "static": {{
+                "css": [
+                    "styles.css"
+                ],
+                "js": [
+                    "script.js"
                 ]
-            }}        
+            }},
+            "templates": [
+                "index.html"
+            ]
+        }},
+        "tests": {{
+            "unit_tests": [
+                "test_calculator.py"
+            ]
+        }}        
     }}
     """
     
@@ -70,7 +83,26 @@ def infer_project_structure(user_story, tech_stack, file_stack, modelname="gpt-4
 
 def clean_code(code):
     code = re.sub(r"//.*?$|/\*.*?\*/|#.*?$", "", code, flags=re.MULTILINE | re.DOTALL)
+    code = parse_code_blocks(code)
     return code.strip()
+
+def parse_code_blocks(code: str) -> str:
+    if not re.search(r"```([\s\S]+?)```", code):
+        return code
+
+    filtered_lines = []
+    in_code_block = False
+    for line in code.split('\n'):
+        if line.startswith('```'):
+            in_code_block = not in_code_block
+            if not in_code_block:
+                filtered_lines.append('\n')
+            continue
+
+        if in_code_block:
+            filtered_lines.append(line)
+
+    return '\n'.join(filtered_lines)
 
 def generate_code_for_files(project_structure, user_story, tech_stack, base_path="SampleAIApp", modelname="gpt-3.5-turbo"):
     for folder, contents in project_structure.items():
@@ -99,9 +131,9 @@ def generate_code_for_files(project_structure, user_story, tech_stack, base_path
                     """
                     code = llmConnector(prompt, modelname).strip()
                     cleaned_code = clean_code(code)
-                    print(f"Info Log : Reviewing {file} file...")
-                    reviewed_code = review_code(cleaned_code, modelname)
+                    # print(f"Info Log : Reviewing {file} file...")
+                    # reviewed_code = review_code(cleaned_code, modelname)
                     with open(file_path, "w") as f:
-                        f.write(reviewed_code)
+                        f.write(cleaned_code)
                 else:
                     print(f"Warning: Unexpected structure for file {file}. Skipping.")

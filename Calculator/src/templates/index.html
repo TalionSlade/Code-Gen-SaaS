@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator App</title>
+    <script src="https:
+    <script src="https:
+    <script src="https:
+    <style>
+        
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+    class Calculator extends React.Component {
+        state = {
+            num1: '',
+            num2: '',
+            operator: '',
+            result: '',
+            error: ''
+        };
+
+        handleInputChange = e => {
+            this.setState({ [e.target.name]: e.target.value });
+        };
+
+        calculate = () => {
+            axios.post('/calculate', {
+                num1: this.state.num1,
+                num2: this.state.num2,
+                operator: this.state.operator
+            })
+            .then(response => {
+                this.setState({ result: response.data.result });
+            })
+            .catch(error => {
+                this.setState({ error: error.response.data.message });
+            });
+        };
+
+        clearInput = () => {
+            this.setState({
+                num1: '',
+                num2: '',
+                operator: '',
+                result: '',
+                error: ''
+            });
+        };
+
+        render() {
+            return (
+                <div>
+                    <input type="number" name="num1" value={this.state.num1} onChange={this.handleInputChange} />
+                    <select name="operator" value={this.state.operator} onChange={this.handleInputChange}>
+                        <option value="+">+</option>
+                        <option value="-">-</option>
+                        <option value="*">*</option>
+                        <option value="/">/</option>
+                    </select>
+                    <input type="number" name="num2" value={this.state.num2} onChange={this.handleInputChange} />
+                    <button onClick={this.calculate}>Calculate</button>
+                    <button onClick={this.clearInput}>Clear</button>
+                    <div>{this.state.result}</div>
+                    {this.state.error && <div>{this.state.error}</div>}
+                </div>
+            );
+        }
+    }
+
+    ReactDOM.render(<Calculator />, document.getElementById('app'));
+    </script>
+</body>
+
+</html>
